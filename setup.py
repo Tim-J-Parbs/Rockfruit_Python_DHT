@@ -91,7 +91,7 @@ elif platform == platform_detect.RADXA_ZERO:
                                         include_dirs=['/usr/local/include'],
                                         libraries=['mraa'],
                                         library_dirs=['/usr/local/lib'],
-                                        sources=['mraa.h'])
+                                        sources=['mraa.hpp'])
                       )
 
 elif platform == 'TEST':
