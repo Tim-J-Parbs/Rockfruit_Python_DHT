@@ -21,7 +21,7 @@
 #include <stdbool.h>
 #include <stdlib.h>
 #include <unistd.h>
-
+#include "rzero_dht_read.h"
 #include "mraa/gpio.h"
 
 // This is the only processor specific magic value, the maximum amount of time to
