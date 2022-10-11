@@ -22,7 +22,8 @@
 #define RADXA_ZERO_DHT_READ_H
 
 #include "../common_dht_read.h"
-#include "mraa/gpio.h"
+//#include "mraa/gpio.h"
+#include <mraa.h>
 // Read DHT sensor connected to GPIO pin (using BCM numbering).  Humidity and temperature will be 
 // returned in the provided parameters. If a successfull reading could be made a value of 0 
 // (DHT_SUCCESS) will be returned.  If there was an error reading the sensor a negative value will
