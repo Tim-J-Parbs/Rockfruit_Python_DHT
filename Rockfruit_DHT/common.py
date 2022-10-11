@@ -59,6 +59,9 @@ def get_platform():
     elif plat == platform_detect.BEAGLEBONE_BLACK:
         from . import Beaglebone_Black
         return Beaglebone_Black
+    elif plat == platform_detect.RADXA_ZERO:
+        from . import Radxa_Zero
+        return Radxa_Zero
     else:
         raise RuntimeError('Unknown platform.')
 

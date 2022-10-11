@@ -49,7 +49,7 @@ int rzero_dht_read(int type, int pin, float* humidity, float* temperature) {
   *humidity = 0.0f;
 
   // Initialize GPIO library.
-  gpio = mraa_gpio_init(pin);
+  writ
   if (gpio == NULL) {
     fprintf(stderr, "Failed to initialize GPIO %d\n", pin);
     mraa_deinit();

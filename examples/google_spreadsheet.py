@@ -38,12 +38,12 @@ import sys
 import time
 import datetime
 
-import Adafruit_DHT
+import Rockfruit_DHT
 import gspread
 from oauth2client.service_account import ServiceAccountCredentials
 
 # Type of sensor, can be Adafruit_DHT.DHT11, Adafruit_DHT.DHT22, or Adafruit_DHT.AM2302.
-DHT_TYPE = Adafruit_DHT.DHT22
+DHT_TYPE = Rockfruit_DHT.DHT22
 
 # Example of sensor connected to Raspberry Pi pin 23
 DHT_PIN  = 23
@@ -101,7 +101,7 @@ while True:
         worksheet = login_open_sheet(GDOCS_OAUTH_JSON, GDOCS_SPREADSHEET_NAME)
 
     # Attempt to get sensor reading.
-    humidity, temp = Adafruit_DHT.read(DHT_TYPE, DHT_PIN)
+    humidity, temp = Rockfruit_DHT.read(DHT_TYPE, DHT_PIN)
 
     # Skip to the next reading if a valid measurement couldn't be taken.
     # This might happen if the CPU is under a lot of load and the sensor

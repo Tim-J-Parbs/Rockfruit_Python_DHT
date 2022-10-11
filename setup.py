@@ -2,7 +2,7 @@ from setuptools import setup, find_packages, Extension
 import os
 import sys
 
-import Adafruit_DHT.platform_detect as platform_detect
+import Rockfruit_DHT.platform_detect as platform_detect
 
 
 BINARY_COMMANDS = [
@@ -61,34 +61,34 @@ elif platform == platform_detect.RASPBERRY_PI:
         pi_version = platform_detect.pi_version()
     # Build the right extension depending on the Pi version.
     if pi_version == 1:
-        extensions.append(Extension("Adafruit_DHT.Raspberry_Pi_Driver",
+        extensions.append(Extension("Rockfruit_DHT.Raspberry_Pi_Driver",
                                     ["source/_Raspberry_Pi_Driver.c", "source/common_dht_read.c", "source/Raspberry_Pi/pi_dht_read.c", "source/Raspberry_Pi/pi_mmio.c"],
                                     libraries=['rt'],
                                     extra_compile_args=['-std=gnu99']))
     elif pi_version == 2:
-        extensions.append(Extension("Adafruit_DHT.Raspberry_Pi_2_Driver",
+        extensions.append(Extension("Rockfruit_DHT.Raspberry_Pi_2_Driver",
                                     ["source/_Raspberry_Pi_2_Driver.c", "source/common_dht_read.c", "source/Raspberry_Pi_2/pi_2_dht_read.c", "source/Raspberry_Pi_2/pi_2_mmio.c"],
                                     libraries=['rt'],
                                     extra_compile_args=['-std=gnu99']))
     elif pi_version == 3:
-        extensions.append(Extension("Adafruit_DHT.Raspberry_Pi_2_Driver",
+        extensions.append(Extension("Rockfruit_DHT.Raspberry_Pi_2_Driver",
                                     ["source/_Raspberry_Pi_2_Driver.c", "source/common_dht_read.c", "source/Raspberry_Pi_2/pi_2_dht_read.c", "source/Raspberry_Pi_2/pi_2_mmio.c"],
                                     libraries=['rt'],
                                     extra_compile_args=['-std=gnu99']))
     else:
         raise RuntimeError('Detected Pi version that has no appropriate driver available.')
 elif platform == platform_detect.BEAGLEBONE_BLACK:
-    extensions.append(Extension("Adafruit_DHT.Beaglebone_Black_Driver",
+    extensions.append(Extension("Rockfruit_DHT.Beaglebone_Black_Driver",
                                 ["source/_Beaglebone_Black_Driver.c", "source/common_dht_read.c", "source/Beaglebone_Black/bbb_dht_read.c", "source/Beaglebone_Black/bbb_mmio.c"],
                                 libraries=['rt'],
                                 extra_compile_args=['-std=gnu99']))
 elif platform == platform_detect.RADXA_ZERO:
-    extensions.append(Extension("Adafruit_DHT.Radxa_Zero_Driver",
+    extensions.append(Extension("Rockfruit_DHT.Radxa_Zero_Driver",
                                 ["source/_Radxa_Zero_Driver.c", "source/common_dht_read.c", "source/Radxa_Zero/rzero_dht_read.c"],
                                 libraries=['rt'],
                                 extra_compile_args=['-std=gnu99']))
 elif platform == 'TEST':
-    extensions.append(Extension("Adafruit_DHT.Test_Driver",
+    extensions.append(Extension("Rockfruit_DHT.Test_Driver",
                                 ["source/_Test_Driver.c", "source/Test/test_dht_read.c"],
                                 extra_compile_args=['-std=gnu99']))
 else:
