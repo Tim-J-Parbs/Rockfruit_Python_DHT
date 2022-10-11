@@ -88,7 +88,7 @@ elif platform == platform_detect.RADXA_ZERO:
                                 libraries=['rt','mraa'],
                                 include_dirs=['/usr/local/include'],
                                 library_dirs=['/usr/local/lib'],
-                                extra_compile_args=['-std=gnu99', '-Wall']))
+                                extra_compile_args=['-std=gnu99', '-lmraa']))
 
 
 elif platform == 'TEST':
