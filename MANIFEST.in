@@ -1,2 +1,3 @@
 include README.md
 recursive-include source *
+include /usr/local/include/mraa.h
