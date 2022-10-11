@@ -44,6 +44,9 @@ elif '--force-bbb' in sys.argv:
 elif '--force-test' in sys.argv:
     platform = 'TEST'
     sys.argv.remove('--force-test')
+elif '--force-radxa0' in sys.argv:
+    platform = 'RADXA_ZERO'
+    sys.argv.remove('--force-radxa0')
 else:
     # No explicit platform chosen, detect the current platform.
     platform = platform_detect.platform_detect()
@@ -77,6 +80,11 @@ elif platform == platform_detect.RASPBERRY_PI:
 elif platform == platform_detect.BEAGLEBONE_BLACK:
     extensions.append(Extension("Adafruit_DHT.Beaglebone_Black_Driver",
                                 ["source/_Beaglebone_Black_Driver.c", "source/common_dht_read.c", "source/Beaglebone_Black/bbb_dht_read.c", "source/Beaglebone_Black/bbb_mmio.c"],
+                                libraries=['rt'],
+                                extra_compile_args=['-std=gnu99']))
+elif platform == platform_detect.RADXA_ZERO:
+    extensions.append(Extension("Adafruit_DHT.Radxa_Zero_Driver",
+                                ["source/_Radxa_Zero_Driver.c", "source/common_dht_read.c", "source/Radxa_Zero/rzero_dht_read.c"],
                                 libraries=['rt'],
                                 extra_compile_args=['-std=gnu99']))
 elif platform == 'TEST':

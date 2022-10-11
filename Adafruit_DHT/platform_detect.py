@@ -31,13 +31,16 @@ import re
 UNKNOWN          = 0
 RASPBERRY_PI     = 1
 BEAGLEBONE_BLACK = 2
-
+RADXA            = 3
 
 def platform_detect():
     """Detect if running on the Raspberry Pi or Beaglebone Black and return the
     platform type.  Will return RASPBERRY_PI, BEAGLEBONE_BLACK, or UNKNOWN."""
     # Handle Raspberry Pi
-    pi = pi_version()
+    try:
+        pi = pi_version()
+    except:
+        pi = None
     if pi is not None:
         return RASPBERRY_PI
 
@@ -53,7 +56,8 @@ def platform_detect():
         return BEAGLEBONE_BLACK
     elif plat.lower().find('armv7l-with-arch') > -1:
         return BEAGLEBONE_BLACK
-
+    elif plat.lower().find('amlogic') > -1:
+        return RADXA_ZERO
     # Couldn't figure out the platform, just return unknown.
     return UNKNOWN
 
