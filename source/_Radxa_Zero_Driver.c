@@ -44,7 +44,7 @@ static PyMethodDef module_methods[] = {
 };
 
 #if PY_MAJOR_VERSION > 2
-static struct PyModuleDef pi2_dht_module = {
+static struct PyModuleDef rzero_dht_module = {
     PyModuleDef_HEAD_INIT,
     "Radxa_Zero_Driver",        // name of module
     NULL,                      // module documentation, may be NULL
