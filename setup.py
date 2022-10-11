@@ -105,11 +105,11 @@ classifiers = ['Development Status :: 4 - Beta',
                'Topic :: System :: Hardware']
 
 # Call setuptools setup function to install package.
-setup(name              = 'Adafruit_DHT',
+setup(name              = 'Rockfruit_DHT',
       version           = '1.4.0',
-      author            = 'Tony DiCola',
-      author_email      = 'tdicola@adafruit.com',
-      description       = 'Library to get readings from the DHT11, DHT22, and AM2302 humidity and temperature sensors on a Raspberry Pi or Beaglebone Black.',
+      author            = 'Tony DiCola & Tim Parbs',
+      author_email      = 'tdicola@adafruit.com, tim.parbs@gmail.com',
+      description       = 'Library to get readings from the DHT11, DHT22, and AM2302 humidity and temperature sensors on a Raspberry Pi or Beaglebone Black or Radxa Zero.',
       long_description  = read('README.md'),
       license           = 'MIT',
       classifiers       = classifiers,

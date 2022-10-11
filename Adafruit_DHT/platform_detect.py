@@ -31,7 +31,7 @@ import re
 UNKNOWN          = 0
 RASPBERRY_PI     = 1
 BEAGLEBONE_BLACK = 2
-RADXA            = 3
+RADXA_ZERO       = 3
 
 def platform_detect():
     """Detect if running on the Raspberry Pi or Beaglebone Black and return the
