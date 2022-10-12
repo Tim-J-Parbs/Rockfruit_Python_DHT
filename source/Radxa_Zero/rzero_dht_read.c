@@ -1,6 +1,3 @@
-// Copyright (c) 2014 Adafruit Industries
-// Author: Tony DiCola
-
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
 // in the Software without restriction, including without limitation the rights
@@ -41,6 +38,7 @@ int rzero_dht_read(int type, int pin, float* humidity, float* temperature) {
   if (humidity == NULL || temperature == NULL) {
     return DHT_ERROR_ARGUMENT;
   }
+  // This is all built for the libmraa library, which is a lot slower than RPi GPIO control. Might still be buggy
   mraa_result_t status = MRAA_SUCCESS;
   mraa_gpio_context gpio;
   mraa_init();
@@ -89,7 +87,7 @@ int rzero_dht_read(int type, int pin, float* humidity, float* temperature) {
     if (status != MRAA_SUCCESS) {
       goto err_exit;
   }
-  /*
+  /* //Some debugging code
   uint32_t countdb = 0;
   while (!mraa_gpio_read(gpio)) {
     printf("Pin: %x\n", mraa_gpio_read(gpio));
