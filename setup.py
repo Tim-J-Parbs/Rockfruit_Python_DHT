@@ -13,7 +13,8 @@ BINARY_COMMANDS = [
     'bdist_rpm',
     'bdist_wininst',
     'bdist_wheel',
-    'install'
+    'install',
+    'clean'
 ]
 
 
