@@ -97,9 +97,11 @@ elif platform == platform_detect.RADXA_ZERO:
                                     extra_compile_args=['-std=gnu99'],
                                     extra_link_args=['-lmraa', '-Wall']))
     else:
+        print('Using libgpiod')
         extensions.append(Extension("Rockfruit_DHT.Radxa_Zero_gpiod_Driver",
                                     sources=["source/_Radxa_Zero_gpiod_Driver.c", "source/common_dht_read.c",
                                              "source/Radxa_Zero/rzero_dht_gpiod_read.c"],
+                                    libraries=['rt'],
                                     extra_compile_args=['-std=gnu99'],
                                     extra_link_args=['-lgpiod', '-Wall']))
 
