@@ -79,7 +79,6 @@ def read(sensor, pin, platform=None):
     """
     if sensor not in SENSORS:
         raise ValueError('Expected DHT11, DHT22, or AM2302 sensor value.')
-    print('Reading')
     if platform is None:
         platform = get_platform()
     return platform.read(sensor, pin)
