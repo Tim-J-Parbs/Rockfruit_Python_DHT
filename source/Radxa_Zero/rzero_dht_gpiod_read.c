@@ -34,29 +34,25 @@
 
 int rzero_dht_gpiod_read(int type, int pin, float* humidity, float* temperature) {
   // Validate humidity and temperature arguments and set them to zero.
-  printf("Driver responding");
 
   if (humidity == NULL || temperature == NULL) {
     return DHT_ERROR_ARGUMENT;
   }
-  printf("Check - pointers valid");
 
   *temperature = 0.0f;
   *humidity = 0.0f;
   const char *gpchip0 = "gpiochip0";
   const char *gpchip1 = "gpiochip1";
-printf("Check - pointers set");
-
 
   struct gpiod_chip *chip;
   struct gpiod_line *dataline;
   int notsuccess;
-    if (pin<=14){
+    if (pin>14){
   chip = gpiod_chip_open_by_name(gpchip0);
   }else{
     chip = gpiod_chip_open_by_name(gpchip1);
   }
-printf("Check - chip open");
+  //printf("Check - chip open");
   // Open GPIO lines
   dataline = gpiod_chip_get_line(chip, pin);
   notsuccess = gpiod_line_request_output(dataline, "DHT22Driver",0);
@@ -64,7 +60,7 @@ printf("Check - chip open");
     //fprintf(stderr, "Failed to initialize GPIO %d\n", pin);
     goto err_exit;
   }
-printf("Check - lines open");
+  //printf("Check - lines open");
 
 
 
