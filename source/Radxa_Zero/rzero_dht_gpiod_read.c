@@ -38,17 +38,19 @@ int rzero_dht_gpiod_read(int type, int pin, float* humidity, float* temperature)
   if (humidity == NULL || temperature == NULL) {
     return DHT_ERROR_ARGUMENT;
   }
-  char gpchip;
-  if (pin<=14){
-  gpchip = "gpiochip0";
-  }else{
-  gpchip = "gpiochip1";
-  }
+  char *gpchip0 = "gpiochip0"
+  char *gpchip1 = "gpiochip1";
+
 
   struct gpiod_chip *chip;
   struct gpiod_line *dataline;
   int notsuccess;
-  chip = gpiod_chip_open_by_name(gpchip);
+    if (pin<=14){
+  chip = gpiod_chip_open_by_name(gpchip0);
+  }else{
+    chip = gpiod_chip_open_by_name(gpchip1);
+  }
+
   // Open GPIO lines
   dataline = gpiod_chip_get_line(chip, pin);
   notsuccess = gpiod_line_request_output(dataline, "DHT22Driver",0);
