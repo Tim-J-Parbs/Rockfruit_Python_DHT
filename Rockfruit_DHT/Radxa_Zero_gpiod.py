@@ -16,7 +16,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 from . import common
-from . import Radxa_Zero_mraa_Driver as driver
+from . import Radxa_Zero_gpiod_Driver as driver
 from radxa_gpio_lookup import boardpin2line
 def read(sensor, pin):
     # Validate pin is a valid GPIO.
