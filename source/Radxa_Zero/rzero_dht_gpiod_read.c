@@ -35,13 +35,19 @@
 
 int rzero_dht_gpiod_read(int type, int pin, float* humidity, float* temperature) {
   // Validate humidity and temperature arguments and set them to zero.
+  printf("Driver responding");
+
   if (humidity == NULL || temperature == NULL) {
     return DHT_ERROR_ARGUMENT;
   }
+  printf("Check - pointers valid");
+
+  *temperature = 0.0f;
+  *humidity = 0.0f;
   char *gpchip0 = "gpiochip0";
   char *gpchip1 = "gpiochip1";
-
 printf("Check - pointers set");
+
 
   struct gpiod_chip *chip;
   struct gpiod_line *dataline;
@@ -61,8 +67,7 @@ printf("Check - chip open");
   }
 printf("Check - lines open");
 
-  *temperature = 0.0f;
-  *humidity = 0.0f;
+
 
   // Store the count that each DHT bit pulse is low and high.
   // Make sure array is initialized to start at zero.
