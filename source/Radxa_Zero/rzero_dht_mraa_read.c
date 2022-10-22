@@ -18,7 +18,7 @@
 #include <stdbool.h>
 #include <stdlib.h>
 #include <unistd.h>
-#include "rzero_dht_read.h"
+#include "rzero_dht_mraa_read.h"
 
 // This is the only processor specific magic value, the maximum amount of time to
 // spin in a loop before bailing out and considering the read a timeout.  This should
@@ -33,7 +33,7 @@
 
 
 
-int rzero_dht_read(int type, int pin, float* humidity, float* temperature) {
+int rzero_dht_mraa_read(int type, int pin, float* humidity, float* temperature) {
   // Validate humidity and temperature arguments and set them to zero.
   if (humidity == NULL || temperature == NULL) {
     return DHT_ERROR_ARGUMENT;

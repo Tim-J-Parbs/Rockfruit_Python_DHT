@@ -16,10 +16,11 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 from . import common
-from . import Radxa_Zero_Driver as driver
-
+from . import Radxa_Zero_mraa_Driver as driver
+from radxa_gpio_lookup import boardpin2line
 def read(sensor, pin):
     # Validate pin is a valid GPIO.
+    pin = boardpin2line(int(pin))
     if pin is None or int(pin) < 0 or int(pin) > 31:
         raise ValueError('Pin must be a valid GPIO number 0 to 31.')
     # Get a reading from C driver code.

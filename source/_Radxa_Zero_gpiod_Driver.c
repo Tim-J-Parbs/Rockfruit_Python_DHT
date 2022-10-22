@@ -17,7 +17,7 @@
 // SOFTWARE.
 #include <Python.h>
 
-#include "Radxa_Zero/rzero_dht_read.h"
+#include "Radxa_Zero/rzero_dht_gpiod_read.h"
 
 // Wrap calling dht_read function and expose it as a DHT.read Python module & function.
 static PyObject* Radxa_Zero_Driver_read(PyObject *self, PyObject *args)
@@ -29,21 +29,21 @@ static PyObject* Radxa_Zero_Driver_read(PyObject *self, PyObject *args)
     }
     // Call dht_read and return result code, humidity, and temperature.
     float humidity = 0, temperature = 0;
-    int result = rzero_dht_read(sensor, pin, &humidity, &temperature);
+    int result = rzero_dht_gpiod_read(sensor, pin, &humidity, &temperature);
     return Py_BuildValue("iff", result, humidity, temperature);
 }
 
 // Boilerplate python module method list and initialization functions below.
 
 static PyMethodDef module_methods[] = {
-    {"read", Radxa_Zero_Driver_read, METH_VARARGS, "Read DHT sensor value on a Radxa Zero."},
+    {"read", Radxa_Zero_Driver_read, METH_VARARGS, "Read DHT sensor value on a Radxa Zero using libgpiod."},
     {NULL, NULL, 0, NULL}
 };
 
 #if PY_MAJOR_VERSION > 2
 static struct PyModuleDef rzero_dht_module = {
     PyModuleDef_HEAD_INIT,
-    "Radxa_Zero_Driver",        // name of module
+    "Radxa_Zero_gpiod_Driver",        // name of module
     NULL,                      // module documentation, may be NULL
     -1,                        // size of per-interpreter state of the module, or -1 if the module keeps state in global variables.
     module_methods
@@ -51,15 +51,15 @@ static struct PyModuleDef rzero_dht_module = {
 #endif
 
 #if PY_MAJOR_VERSION > 2
-PyMODINIT_FUNC PyInit_Radxa_Zero_Driver(void)
+PyMODINIT_FUNC PyInit_Radxa_Zero_gpiod_Driver(void)
 #else
-PyMODINIT_FUNC initRadxa_Zero_Driver(void)
+PyMODINIT_FUNC initRadxa_Zero_gpiod_Driver(void)
 #endif
 {    
     #if PY_MAJOR_VERSION > 2
       PyObject* module = PyModule_Create(&rzero_dht_module);
     #else
-      Py_InitModule("Radxa_Zero_Driver", module_methods);
+      Py_InitModule("Radxa_Zero_gpiod_Driver", module_methods);
     #endif
 
     #if PY_MAJOR_VERSION > 2

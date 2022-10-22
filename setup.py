@@ -30,6 +30,7 @@ def read(fname):
 # Kind of hacky to manipulate the argument list before calling setup, but it's
 # the best simple option for adding optional config to the setup.
 platform = platform_detect.UNKNOWN
+radxa_mraa = False
 pi_version = None
 if '--force-pi' in sys.argv:
     platform = platform_detect.RASPBERRY_PI
@@ -51,7 +52,9 @@ elif '--force-radxa0' in sys.argv:
 else:
     # No explicit platform chosen, detect the current platform.
     platform = platform_detect.platform_detect()
-
+if '--force-mraa' in sys.argv:
+    radxa_mraa = True
+    sys.argv.remove('--force-mraa')
 # Pick the right extension to compile based on the platform.
 extensions = []
 if not is_binary_install():
@@ -85,14 +88,20 @@ elif platform == platform_detect.BEAGLEBONE_BLACK:
                                 extra_compile_args=['-std=gnu99']))
 elif platform == platform_detect.RADXA_ZERO:
     print('RADXA!!')
-    extensions.append(Extension("Rockfruit_DHT.Radxa_Zero_Driver",
-                                sources=["source/_Radxa_Zero_Driver.c", "source/common_dht_read.c", "source/Radxa_Zero/rzero_dht_read.c"],
-                                libraries=['mraa'],
-                                include_dirs=['/usr/local/include'],
-                                library_dirs=['/usr/local/lib'],
-                                extra_compile_args=['-std=gnu99'],
-                                extra_link_args=['-lmraa', '-Wall']))
-
+    if radxa_mraa:
+        extensions.append(Extension("Rockfruit_DHT.Radxa_Zero_Driver",
+                                    sources=["source/_Radxa_Zero_mraa_Driver.c", "source/common_dht_read.c", "source/Radxa_Zero/rzero_dht_mraa_read.c"],
+                                    libraries=['mraa'],
+                                    include_dirs=['/usr/local/include'],
+                                    library_dirs=['/usr/local/lib'],
+                                    extra_compile_args=['-std=gnu99'],
+                                    extra_link_args=['-lmraa', '-Wall']))
+    else:
+        extensions.append(Extension("Rockfruit_DHT.Radxa_Zero_Driver",
+                                    sources=["source/_Radxa_Zero_gpiod_Driver.c", "source/common_dht_read.c",
+                                             "source/Radxa_Zero/rzero_dht_gpiod_read.c"],
+                                    extra_compile_args=['-std=gnu99'],
+                                    extra_link_args=['-lgpiod', '-Wall']))
 
 elif platform == 'TEST':
     extensions.append(Extension("Rockfruit_DHT.Test_Driver",
