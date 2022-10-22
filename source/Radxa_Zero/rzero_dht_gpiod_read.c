@@ -46,13 +46,13 @@ int rzero_dht_gpiod_read(int type, int pin, float* humidity, float* temperature)
 
   struct gpiod_chip *chip;
   struct gpiod_line *dataline;
-  int *notsuccess;
+  int notsuccess;
   chip = gpiod_chip_open_by_name(gpchip);
   // Open GPIO lines
   dataline = gpiod_chip_get_line(chip, pin);
   notsuccess = gpiod_line_request_output(dataline, "DHT22Driver",0);
   if (notsuccess != 0) {
-    fprintf(stderr, "Failed to initialize GPIO %d\n", pin);
+    //fprintf(stderr, "Failed to initialize GPIO %d\n", pin);
     goto err_exit
   }
 
