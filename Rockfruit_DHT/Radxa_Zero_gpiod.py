@@ -31,6 +31,7 @@ def boardpin2line(pin):
 def read(sensor, pin):
     # Validate pin is a valid GPIO.
     pin = boardpin2line(int(pin))
+    print('Hello')
     if pin is None or int(pin) < 0 or int(pin) > 80:
         raise ValueError('Pin must be a valid GPIO number 0 to 31, Excluding weirdo pins.')
     # Get a reading from C driver code.
