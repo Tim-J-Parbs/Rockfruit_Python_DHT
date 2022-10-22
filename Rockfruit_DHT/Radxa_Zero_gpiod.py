@@ -21,8 +21,8 @@ from radxa_gpio_lookup import boardpin2line
 def read(sensor, pin):
     # Validate pin is a valid GPIO.
     pin = boardpin2line(int(pin))
-    if pin is None or int(pin) < 0 or int(pin) > 31:
-        raise ValueError('Pin must be a valid GPIO number 0 to 31.')
+    if pin is None or int(pin) < 0 or int(pin) > 80:
+        raise ValueError('Pin must be a valid GPIO number 0 to 31, Excluding weirdo pins.')
     # Get a reading from C driver code.
     result, humidity, temp = driver.read(sensor, int(pin))
     if result in common.TRANSIENT_ERRORS:
