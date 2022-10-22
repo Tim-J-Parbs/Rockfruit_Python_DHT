@@ -38,10 +38,11 @@ int rzero_dht_gpiod_read(int type, int pin, float* humidity, float* temperature)
   if (humidity == NULL || temperature == NULL) {
     return DHT_ERROR_ARGUMENT;
   }
+  const char *gpchip
   if (pin<=14){
-  const char *gpchip = "gpiochip0";
+  gpchip = "gpiochip0";
   }else{
-  const char *gpchip = "gpiochip1";
+  gpchip = "gpiochip1";
   }
 
   struct gpiod_chip *chip;
@@ -53,7 +54,7 @@ int rzero_dht_gpiod_read(int type, int pin, float* humidity, float* temperature)
   notsuccess = gpiod_line_request_output(dataline, "DHT22Driver",0);
   if (notsuccess != 0) {
     //fprintf(stderr, "Failed to initialize GPIO %d\n", pin);
-    goto err_exit
+    goto err_exit;
   }
 
   *temperature = 0.0f;
