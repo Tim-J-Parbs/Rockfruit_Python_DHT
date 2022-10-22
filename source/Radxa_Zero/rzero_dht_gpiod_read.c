@@ -19,7 +19,6 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include "rzero_dht_gpiod_read.h"
-#include <stdio.h>
 // This is the only processor specific magic value, the maximum amount of time to
 // spin in a loop before bailing out and considering the read a timeout.  This should
 // be a high value, but if you're running on a much faster platform than a Raspberry
@@ -44,8 +43,8 @@ int rzero_dht_gpiod_read(int type, int pin, float* humidity, float* temperature)
 
   *temperature = 0.0f;
   *humidity = 0.0f;
-  char *gpchip0 = "gpiochip0";
-  char *gpchip1 = "gpiochip1";
+  const char *gpchip0 = "gpiochip0";
+  const char *gpchip1 = "gpiochip1";
 printf("Check - pointers set");
 
 
