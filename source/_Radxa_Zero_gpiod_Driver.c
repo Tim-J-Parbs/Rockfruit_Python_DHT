@@ -20,7 +20,7 @@
 #include "Radxa_Zero/rzero_dht_gpiod_read.h"
 
 // Wrap calling dht_read function and expose it as a DHT.read Python module & function.
-static PyObject* Radxa_Zero_Driver_read(PyObject *self, PyObject *args)
+static PyObject* Radxa_Zero_gpiod_Driver_read(PyObject *self, PyObject *args)
 {
 	// Parse sensor and pin integer arguments.
     int sensor, pin;
@@ -36,12 +36,12 @@ static PyObject* Radxa_Zero_Driver_read(PyObject *self, PyObject *args)
 // Boilerplate python module method list and initialization functions below.
 
 static PyMethodDef module_methods[] = {
-    {"read", Radxa_Zero_Driver_read, METH_VARARGS, "Read DHT sensor value on a Radxa Zero using libgpiod."},
+    {"read", Radxa_Zero_gpiod_Driver_read, METH_VARARGS, "Read DHT sensor value on a Radxa Zero using libgpiod."},
     {NULL, NULL, 0, NULL}
 };
 
 #if PY_MAJOR_VERSION > 2
-static struct PyModuleDef rzero_dht_module = {
+static struct PyModuleDef rzero_dht_gpiod_module = {
     PyModuleDef_HEAD_INIT,
     "Radxa_Zero_gpiod_Driver",        // name of module
     NULL,                      // module documentation, may be NULL
@@ -57,8 +57,9 @@ PyMODINIT_FUNC initRadxa_Zero_gpiod_Driver(void)
 #endif
 {    
     #if PY_MAJOR_VERSION > 2
-      PyObject* module = PyModule_Create(&rzero_dht_module);
+      PyObject* module = PyModule_Create(&rzero_dht_gpiod_module);
     #else
+      Py_InitModule("Radxa_Zero_gpiod_Driver", module_methods);
       Py_InitModule("Radxa_Zero_gpiod_Driver", module_methods);
     #endif
 
