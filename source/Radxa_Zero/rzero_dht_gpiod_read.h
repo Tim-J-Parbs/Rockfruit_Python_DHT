@@ -29,6 +29,6 @@
 // returned in the provided parameters. If a successfull reading could be made a value of 0 
 // (DHT_SUCCESS) will be returned.  If there was an error reading the sensor a negative value will
 // be returned.  Some errors can be ignored and retried, specifically DHT_ERROR_TIMEOUT or DHT_ERROR_CHECKSUM.
-int rzero_dht_read(int sensor, int pin, float* humidity, float* temperature);
+int rzero_dht_gpiod_read(int sensor, int pin, float* humidity, float* temperature);
 
 #endif
