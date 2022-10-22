@@ -38,7 +38,7 @@ int rzero_dht_gpiod_read(int type, int pin, float* humidity, float* temperature)
   if (humidity == NULL || temperature == NULL) {
     return DHT_ERROR_ARGUMENT;
   }
-  char *gpchip;
+  char gpchip;
   if (pin<=14){
   gpchip = "gpiochip0";
   }else{
