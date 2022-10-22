@@ -19,7 +19,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include "rzero_dht_gpiod_read.h"
-
+#include <stdio.h>
 // This is the only processor specific magic value, the maximum amount of time to
 // spin in a loop before bailing out and considering the read a timeout.  This should
 // be a high value, but if you're running on a much faster platform than a Raspberry
@@ -41,6 +41,7 @@ int rzero_dht_gpiod_read(int type, int pin, float* humidity, float* temperature)
   char *gpchip0 = "gpiochip0";
   char *gpchip1 = "gpiochip1";
 
+printf("Check - pointers set")
 
   struct gpiod_chip *chip;
   struct gpiod_line *dataline;
@@ -50,7 +51,7 @@ int rzero_dht_gpiod_read(int type, int pin, float* humidity, float* temperature)
   }else{
     chip = gpiod_chip_open_by_name(gpchip1);
   }
-
+printf("Check - chip open")
   // Open GPIO lines
   dataline = gpiod_chip_get_line(chip, pin);
   notsuccess = gpiod_line_request_output(dataline, "DHT22Driver",0);
@@ -58,6 +59,7 @@ int rzero_dht_gpiod_read(int type, int pin, float* humidity, float* temperature)
     //fprintf(stderr, "Failed to initialize GPIO %d\n", pin);
     goto err_exit;
   }
+printf("Check - lines open")
 
   *temperature = 0.0f;
   *humidity = 0.0f;
