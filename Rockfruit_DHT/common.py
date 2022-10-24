@@ -59,13 +59,13 @@ def get_platform():
     elif plat == platform_detect.BEAGLEBONE_BLACK:
         from . import Beaglebone_Black
         return Beaglebone_Black
-    elif plat == platform_detect.RADXA_ZERO:
+    elif plat == platform_detect.RADXA:
         from . import Radxa_Zero
         return Radxa_Zero
     else:
         raise RuntimeError('Unknown platform.')
 
-def read(sensor, pin, platform=None):
+def read(sensor, pin, platform=None, numbering='board'):
     """Read DHT sensor of specified sensor type (DHT11, DHT22, or AM2302) on
     specified pin and return a tuple of humidity (as a floating point value
     in percent) and temperature (as a floating point value in Celsius). Note that
@@ -81,7 +81,7 @@ def read(sensor, pin, platform=None):
         raise ValueError('Expected DHT11, DHT22, or AM2302 sensor value.')
     if platform is None:
         platform = get_platform()
-    return platform.read(sensor, pin)
+    return platform.read(sensor, pin, numbering=numbering)
 
 def read_retry(sensor, pin, retries=15, delay_seconds=2, platform=None):
     """Read DHT sensor of specified sensor type (DHT11, DHT22, or AM2302) on

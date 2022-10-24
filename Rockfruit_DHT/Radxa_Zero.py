@@ -34,10 +34,11 @@ def boardpin2line(pin):
     linepin = LINE[pin]
     return linepin
 
-def read(sensor, pin):
+def read(sensor, pin, numbering='board'):
     if gpiodmode:
         # Validate pin is a valid GPIO.
-        pin = boardpin2line(int(pin))
+        if numbering == 'board':
+            pin = boardpin2line(int(pin))
         if pin is None or int(pin) < 0 or int(pin) > 80:
             raise ValueError('Pin must be a valid GPIO number 0 to 31, Excluding weirdo pins.')
     else:

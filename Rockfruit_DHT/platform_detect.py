@@ -31,7 +31,7 @@ import re
 UNKNOWN          = 0
 RASPBERRY_PI     = 1
 BEAGLEBONE_BLACK = 2
-RADXA_ZERO       = 3
+RADXA            = 3
 
 def platform_detect():
     """Detect if running on the Raspberry Pi or Beaglebone Black and return the
@@ -56,8 +56,8 @@ def platform_detect():
         return BEAGLEBONE_BLACK
     elif plat.lower().find('armv7l-with-arch') > -1:
         return BEAGLEBONE_BLACK
-    elif plat.lower().find('amlogic') > -1:
-        return RADXA_ZERO
+    elif any([plat.lower().find(i) > -1 for i in ['amlogic', 'rockchip']]):
+        return RADXA
     # Couldn't figure out the platform, just return unknown.
     return UNKNOWN
 

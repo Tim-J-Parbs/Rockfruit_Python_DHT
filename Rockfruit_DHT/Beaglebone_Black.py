@@ -194,9 +194,12 @@ pin_to_gpio = {
     "71": (2,7)
 }
 
-def read(sensor, pin):
+def read(sensor, pin, numbering='board'):
     # Validate GPIO and map it to GPIO base and number.
-    gpio = pin_to_gpio.get(str(pin).upper(), None)
+    if numbering=='board':
+        gpio = pin_to_gpio.get(str(pin).upper(), None)
+    else:
+        gpio = pin
     if gpio is None:
         # Couldn't find in mapping, check if pin looks like GPIO<base>_<number>
         match = re.match('GPIO([0123])_(\d+)', pin, re.IGNORECASE)

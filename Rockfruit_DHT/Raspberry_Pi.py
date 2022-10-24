@@ -21,7 +21,7 @@
 from . import common
 from . import Raspberry_Pi_Driver as driver
 
-def read(sensor, pin):
+def read(sensor, pin, numbering='board'):
     # Validate pin is a valid GPIO.
     if pin is None or int(pin) < 0 or int(pin) > 31:
         raise ValueError('Pin must be a valid GPIO number 0 to 31.')

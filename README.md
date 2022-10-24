@@ -1,41 +1,23 @@
-*DEPRECATED LIBRARY* Adafruit Python DHT Sensor Library
+Python DHT Sensor Library with support for libmraa and libgpiod
 =======================
 
-his library has been deprecated! We are leaving this up for historical and research purposes but archiving the repository.
+Python library to read the DHT series of humidity and temperature sensors on a variety of boards. 
+In the original version by Tony DiCola, Raspberry Pi Beaglebone Black boards were supported. 
+This version adds support for Radxa boards, using librmaa or libgpiod libraries.
 
-We are now only supporting the use of our CircuitPython libraries for use with Python.
-
-Check out this guide for info on using DHT sensors with the CircuitPython library: https://learn.adafruit.com/dht-humidity-sensing-on-raspberry-pi-with-gdocs-logging/python-setup
-
----------------------------------------
-
-Python library to read the DHT series of humidity and temperature sensors on a
-Raspberry Pi or Beaglebone Black.
-
-Designed specifically to work with the Adafruit DHT series sensors ---->
-https://www.adafruit.com/products/385
-
-Currently the library is tested with Python 2.6, 2.7, 3.3 and 3.4. It should
-work with Python greater than 3.4, too.
+Currently the library is tested with Python 3.9. The added support is only tested with a Radxa Zero board, 
+but should work fine on comparable devices.
 
 Installing
 ----------
 
 ### Dependencies
 
-For all platforms (Raspberry Pi and Beaglebone Black) make sure your system is
+For all platforms make sure your system is
 able to compile and download Python extensions with **pip**:
 
-On Raspbian or Beaglebone Black's Debian/Ubuntu image you can ensure your
+You can ensure your
 system is ready by running one or two of the following sets of commands:
-
-Python 2:
-
-````sh
-sudo apt-get update
-sudo apt-get install python-pip
-sudo python -m pip install --upgrade pip setuptools wheel
-````
 
 Python 3:
 
@@ -45,53 +27,34 @@ sudo apt-get install python3-pip
 sudo python3 -m pip install --upgrade pip setuptools wheel
 ````
 
-### Install with pip
+### Radxa board specifics
+If you are using a Radxa board, confirm you have either ```libmraa``` or ```libgpiod``` installed. ```libmraa``` comes preinstalled on all 
+current OS versions (else, installation depends on your board and is found in the Radxa wiki.)
 
-Use `pip` to install from PyPI.
-
-Python 2:
-
+```libgpiod``` should be the preferred option, as it seems much faster and more stable. Installation is straightforward:
 ```sh
-sudo pip install Adafruit_DHT
+sudo apt update
+sudo apt install gpiod -y
 ```
-
-Python 3:
-
+Note that ```libgpiod``` uses a different pin numbering scheme. This driver has built-in conversion, so the same pin numbering
+scheme (#1 to #40) can be used for both ```libmraa``` and ```libgpiod```. This was only tested on Radxa Zero, if you want to use 
+```libgpiod``` and specify the line number directly, use the optional argument ```numbering``` like:
 ```sh
-sudo pip3 install Adafruit_DHT
+import Rockfruit_DHT as driver
+temp, humidity = driver.read(driver.DHT22, linepin, numbering='line')
 ```
 
 ### Compile and install from the repository
 
-First download the library source code from the [GitHub releases
-page](https://github.com/adafruit/Adafruit_Python_DHT/releases), unzipping the
+First download the library source code, unzip the
 archive, and execute:
 
-Python 2:
-
 ```sh
-cd Adafruit_Python_DHT
-sudo python setup.py install
-```
-
-Python 3:
-
-```sh
-cd Adafruit_Python_DHT
+cd Rockfruit_Python_DHT
 sudo python3 setup.py install
 ```
+For Radxa boards, the installer first tries to build against ```libgpiod```. If you want to use ```libmraa```, append ```--force-libmraa``` to the install line.
 
-You may also git clone the repository if you want to test an unreleased
-version:
-
-```sh
-git clone https://github.com/adafruit/Adafruit_Python_DHT.git
-```
-
-Usage
------
-
-See example of usage in the examples folder.
 
 Author
 ------
@@ -99,6 +62,6 @@ Author
 Adafruit invests time and resources providing this open source code, please
 support Adafruit and open-source hardware by purchasing products from Adafruit!
 
-Written by Tony DiCola for Adafruit Industries.
+Written by Tony DiCola for Adafruit Industries, modified by Tim Parbs for Radxa boards.
 
 MIT license, all text above must be included in any redistribution
