@@ -60,8 +60,8 @@ def get_platform():
         from . import Beaglebone_Black
         return Beaglebone_Black
     elif plat == platform_detect.RADXA_ZERO:
-        from . import Radxa_Zero_gpiod
-        return Radxa_Zero_gpiod # TODO: Switch this, depending on build!
+        from . import Radxa_Zero
+        return Radxa_Zero
     else:
         raise RuntimeError('Unknown platform.')
 

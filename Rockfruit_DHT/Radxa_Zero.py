@@ -16,23 +16,33 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 from . import common
-from . import Radxa_Zero_gpiod_Driver as driver
+gpiodmode = False
+try:
+    from . import Radxa_Zero_gpiod_Driver as driver # Prefer GPIOD driver over libmraa. Is faster.
+    gpiodmode = True
+except:
+    from . import Radxa_Zero_mraa_Driver as driver
+
 BOARD = [None, 1,  2,3,4, 5, 6, 7, 8, 9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27, 28,29,30,31,32,33,34,35,36,37,38,39,40]
 BCM =   [27,  28,  3,5,7,29,31,26,24,21,19,23,32,33, 8,10,36,11,12,35,38,40,15,16,18,22,37,13]
 
 #BOARD =[None,    1,      2,   3,   4, 5,    6, 7, 8,    9,10,11,12,13,   14,   15,16,  17,18,19,   20,21,22,23,24,  25,
 #          26,27, 28,  29,  30,  31,32,  33,  34,35,36,37,38,  39,40]
 LINE =  [None, None,   None,  63,None,64, None, 3, 0, None, 1, 2,74,76, None, None,75,None,73,20, None,21,48,23,22,None,
-         None, 3,  2,None,None,None, 4,None,None, 8,24, 9,10,None,11]
+         None, 3,  2,None,None,None, 4,None,None, 8,24, 9,10,None,11] # GPIOD expects kernel line numbers, which are different from Boardnumbers
 def boardpin2line(pin):
     linepin = LINE[pin]
     return linepin
 
 def read(sensor, pin):
-    # Validate pin is a valid GPIO.
-    pin = boardpin2line(int(pin))
-    if pin is None or int(pin) < 0 or int(pin) > 80:
-        raise ValueError('Pin must be a valid GPIO number 0 to 31, Excluding weirdo pins.')
+    if gpiodmode:
+        # Validate pin is a valid GPIO.
+        pin = boardpin2line(int(pin))
+        if pin is None or int(pin) < 0 or int(pin) > 80:
+            raise ValueError('Pin must be a valid GPIO number 0 to 31, Excluding weirdo pins.')
+    else:
+        if pin is None or int(pin) < 0 or int(pin) > 31:
+            raise ValueError('Pin must be a valid GPIO number 0 to 31.')
     # Get a reading from C driver code.
     result, humidity, temp = driver.read(sensor, int(pin))
     if result in common.TRANSIENT_ERRORS:
