@@ -86,7 +86,7 @@ elif platform == platform_detect.BEAGLEBONE_BLACK:
                                 ["source/_Beaglebone_Black_Driver.c", "source/common_dht_read.c", "source/Beaglebone_Black/bbb_dht_read.c", "source/Beaglebone_Black/bbb_mmio.c"],
                                 libraries=['rt'],
                                 extra_compile_args=['-std=gnu99']))
-elif platform == platform_detect.RADXA_ZERO:
+elif platform == platform_detect.RADXA:
     if radxa_mraa:
         extensions.append(Extension("Rockfruit_DHT.Radxa_Zero_Driver",
                                     sources=["source/_Radxa_Zero_mraa_Driver.c", "source/common_dht_read.c", "source/Radxa_Zero/rzero_dht_mraa_read.c"],
