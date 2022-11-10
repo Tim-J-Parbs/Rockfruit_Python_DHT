@@ -60,7 +60,6 @@ PyMODINIT_FUNC initRadxa_Zero_gpiod_Driver(void)
       PyObject* module = PyModule_Create(&rzero_dht_gpiod_module);
     #else
       Py_InitModule("Radxa_Zero_gpiod_Driver", module_methods);
-      Py_InitModule("Radxa_Zero_gpiod_Driver", module_methods);
     #endif
 
     #if PY_MAJOR_VERSION > 2
